@@ -12,8 +12,18 @@ steps:
   args:
   - 'set'
   - 'image'
-  - 'deployment/kubernetes-assignment'
+  - 'deployment/microservice1'
   - 'microservice1=us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-assignment/microservice1:${SHORT_SHA}'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=kubernetes-assignment-cluster'
+
+# Verify that the new pods are running properly
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - 'rollout'
+  - 'status'
+  - 'deployment/microservice1'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=kubernetes-assignment-cluster'
