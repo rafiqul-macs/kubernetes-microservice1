@@ -33,6 +33,13 @@ jobs:
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
 
+    # Install GKE auth plugin
+    - name: Install GKE Auth Plugin
+      run: |
+        echo "Installing GKE auth plugin..."
+        gcloud components install gke-gcloud-auth-plugin
+        gcloud components update
+
     # Configure Docker to use gcloud as a credential helper
     - name: Auth Docker
       run: |
@@ -58,5 +65,6 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy to GKE
       run: |
+        export USE_GKE_GCLOUD_AUTH_PLUGIN=True
         kubectl set image deployment/${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}=${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
         kubectl rollout status deployment/${{ env.IMAGE_NAME }}
