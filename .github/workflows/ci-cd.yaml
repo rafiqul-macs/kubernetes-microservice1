@@ -56,7 +56,7 @@ jobs:
         docker build -t ${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
         docker build -t ${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:latest .
 
-    # Push the Docker image to Google Artifact Registry
+# Push the Docker image to Google Artifact Registry
     - name: Push Docker image
       run: |
         docker push ${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
@@ -66,5 +66,5 @@ jobs:
     - name: Deploy to GKE
       run: |
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-        kubectl set image deployment/kubernetes-assignment ${{ env.IMAGE_NAME }}=${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        kubectl rollout status deployment/kubernetes-assignment --timeout=5m
+        kubectl set image deployment/microservice1 microservice1=${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        kubectl rollout status deployment/microservice1 --timeout=5m
