@@ -66,5 +66,5 @@ jobs:
     - name: Deploy to GKE
       run: |
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-        kubectl set image deployment/${{ env.IMAGE_NAME }} ${{ env.IMAGE_NAME }}=${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        kubectl rollout status deployment/${{ env.IMAGE_NAME }}
+        kubectl set image deployment/kubernetes-assignment ${{ env.IMAGE_NAME }}=${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        kubectl rollout status deployment/kubernetes-assignment
