@@ -67,4 +67,4 @@ jobs:
       run: |
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
         kubectl set image deployment/kubernetes-assignment ${{ env.IMAGE_NAME }}=${{ env.REGISTRY_PREFIX }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        kubectl rollout status deployment/kubernetes-assignment
+        kubectl rollout status deployment/kubernetes-assignment --timeout=5m
